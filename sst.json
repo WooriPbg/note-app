@@ -1,0 +1,5 @@
+{
+  "name": "notes-app-pbg",
+  "region": "ap-northeast-2",
+  "main": "stacks/index.ts"
+}
