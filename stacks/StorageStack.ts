@@ -9,7 +9,7 @@ export default class StorageStack extends sst.Stack {
 
         this.table = new sst.Table(this, "notes-pbg", {
             dynamodbTable: {
-                tableName: 'nonets-pbg'
+                tableName: 'notes-pbg'
             },
             fields: {
                 userId: sst.TableFieldType.STRING,
