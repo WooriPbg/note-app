@@ -1,9 +1,8 @@
 import * as uuid from "uuid";
-import AWS from "aws-sdk";
+import dynamoDb from "./util/dynamodb";
+import handler from "./util/handler";
 
-const dynamoDb = new AWS.DynamoDB.DocumentClient();
-
-export async function main(event: any) {
+export const main = handler(async (event) => {
     const data = JSON.parse(event.body);
 
     const params = {
@@ -16,18 +15,7 @@ export async function main(event: any) {
             createdAt: Date.now() // 생성된 시간
         }
     };
+    await dynamoDb.put(params);
 
-    try {
-        await dynamoDb.put(params).promise();
-
-        return {
-            statusCode: 200,
-            body: JSON.stringify(params.Item)
-        }
-    } catch (e: any) {
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: e.message})
-        };
-    }
-}
+    return params.Item;
+});
