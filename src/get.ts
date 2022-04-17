@@ -6,7 +6,7 @@ export const main = handler(async (event) => {
         TableName: process.env.TABLE_NAME!,
         // DyanomDB에서 primaryKey, sortKey 2개가 제공되어야 한다.
         Key: {
-            userId: '123', // primaryKey (UserID)
+            userId: event.requestContext.authorizer.iam.cognitoIdentity.identityId, // primaryKey (UserID)
             noteId: event.pathParameters.id // sortKey (noteID)
         }
     };

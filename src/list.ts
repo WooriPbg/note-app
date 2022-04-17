@@ -1,7 +1,7 @@
 import dynamoDb from "./util/dynamodb";
 import handler from "./util/handler";
 
-export const main = handler(async () => {
+export const main = handler(async (event) => {
     const params = {
         TableName: process.env.TABLE_NAME!,
         // 'KeyConditionExpression' dynamoDB에서 query에 사용되는 키값을 정의
@@ -11,7 +11,7 @@ export const main = handler(async () => {
         // 'ExpressionAttributeValues' 위에 KeyConditionExpresion에 매칭되는 값을 정의
         // - ':userId': 'userId'의 값을 정의한다.
         ExpressionAttributeValues: {
-            ':userId': '123'
+            ':userId': event.requestContext.authorizer.iam.cognitoIdentity.identityId
         }
     };
 

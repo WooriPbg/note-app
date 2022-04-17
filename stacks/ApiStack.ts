@@ -1,4 +1,5 @@
 import * as sst from "@serverless-stack/resources";
+import { ApiAuthorizationType } from "@serverless-stack/resources";
 
 export default class ApiStack extends sst.Stack {
     public api: sst.Api;
@@ -9,6 +10,7 @@ export default class ApiStack extends sst.Stack {
         const { table } = props;
 
         this.api = new sst.Api(this, 'api-pbg', {
+            defaultAuthorizationType: ApiAuthorizationType.AWS_IAM,
             defaultFunctionProps: {
                 environment: {
                     TABLE_NAME: table.tableName
