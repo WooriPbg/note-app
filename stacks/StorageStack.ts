@@ -1,4 +1,5 @@
 import * as sst from "@serverless-stack/resources";
+import { HttpMethods } from 'aws-cdk-lib/aws-s3';
 
 export default class StorageStack extends sst.Stack {
     public table: sst.Table;
@@ -22,6 +23,23 @@ export default class StorageStack extends sst.Stack {
         });
 
         // S3Bucket 생성
-        this.buket = new sst.Bucket(this, 'Uploads');
+        this.buket = new sst.Bucket(this, 'Uploads', {
+            s3Bucket: {
+                cors: [
+                    {
+                        maxAge: 3000,
+                        allowedOrigins: ['*'],
+                        allowedHeaders: ['*'],
+                        allowedMethods: [
+                            HttpMethods.GET,
+                            HttpMethods.POST,
+                            HttpMethods.PUT,
+                            HttpMethods.DELETE,
+                            HttpMethods.HEAD
+                        ]
+                    }
+                ]
+            }
+        });
     }
 }

@@ -16,6 +16,7 @@ export default class ApiStack extends sst.Stack {
                     TABLE_NAME: table.tableName
                 }
             },
+            cors: true, // --> CORS 설정 추가
             routes: {
                 'POST /notes': 'src/create.main', // 메모 생성 API
                 'GET /notes/{id}': 'src/get.main', // 메모 조회 API
