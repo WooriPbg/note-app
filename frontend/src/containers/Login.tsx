@@ -3,7 +3,6 @@ import Form from 'react-bootstrap/Form';
 import LoaderButton from '../components/LoaderButton';
 import { Auth } from 'aws-amplify';
 import { Authentication, useAppContext } from '../lib/contextLib';
-import { useHistory } from 'react-router-dom';
 import './Login.css';
 import { onError } from '../lib/errorLib';
 import { useFormFields } from '../lib/hooksLib';
@@ -15,7 +14,6 @@ export default function Login() {
         email: '',
         password: ''
     })
-    const history = useHistory();
 
     function validateForm() {
         return fields.email.length > 0 && fields.password.length > 0;
@@ -29,7 +27,6 @@ export default function Login() {
         try {
             await Auth.signIn(fields.email, fields.password);
             userHasAuthenticated(true);
-            history.push('/') // 로그인 시 이동 경로
         } catch (e: unknown) {
             onError(e);
             setIsLoading(false);
