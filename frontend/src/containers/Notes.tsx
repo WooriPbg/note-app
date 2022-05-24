@@ -58,7 +58,7 @@ export default function Notes() {
   }
 
   function saveNote(note: any) {
-      return API.put('notes', `notes/${id}`, {
+      return API.put('notes', `/notes/${id}`, {
           body: note
       });
   }
